@@ -12,13 +12,7 @@ class Animal {
   takeDamage(amount) {
     this.health -= amount;
 
-    if (this.health <= 0) {
-      const index = Animal.alive.indexOf(this);
-
-      if (index > -1) {
-        Animal.alive.splice(index, 1);
-      }
-    }
+    Animal.alive = Animal.alive.filter((a) => a.health > 0);
   }
 }
 
@@ -35,7 +29,6 @@ class Herbivore extends Animal {
 
 class Carnivore extends Animal {
   bite(target) {
-    // Бьёт только травоядных и если они не прячутся
     if (target instanceof Herbivore && !target.hidden) {
       target.takeDamage(50);
     }
